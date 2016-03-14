@@ -1,7 +1,10 @@
 ---
-layout: default
+layout: post
 title: nil, Nil, NULL, NSNull
 ---
+{{ page.title }}
+==================
+<p class="meta">2016年3月14日 - 杭州</p>
 
 之前一直不曾注意nil,Nil,NULL,NSNull这几个的区别，一般都是直接用nil。这次趁着排查一个相关的Crash问题顺便总结一下，这里面的坑还是蛮深的，后面需要好好的注意一下。
 
