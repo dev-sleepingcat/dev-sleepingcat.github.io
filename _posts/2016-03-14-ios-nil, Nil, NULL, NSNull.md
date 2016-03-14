@@ -1,9 +1,7 @@
 
 ---
-
 layout: default
 title: nil, Nil, NULL, NSNull
-
 ---
 
 之前一直不曾注意nil,Nil,NULL,NSNull这几个的区别，一般都是直接用nil。这次趁着排查一个相关的Crash问题顺便总结一下，这里面的坑还是蛮深的，后面需要好好的注意一下。
@@ -25,15 +23,15 @@ Nil 是 Objective-C 类类型的字面空值，对应 Class 类型对象。一�
 
 	Class someCls = Nil;
 	Class stringCls = [NSString class];
-	
+
 #### NULL
-	
+
 NULL 是任意的 C 指针的空值。比如：
 
 	int *intPointer = NULL;
 	float *floatPointer = NULL;
 	struct Node *node = NULL;
-	
+
 #### NSNull
 
 NSNull是一个Objective-C对象，代表一个空值的类。实际上它只有一个单例方法：+[NSNull null]；注意，它和nil是有很大区别的，nil表示一个空值，而NSNull则是空值对象。
@@ -54,29 +52,28 @@ NSNull经常用于Foundation的集合当中（NSArray,NSDictionary等）,因为�
 
 	@interface NSNull (JSON)
 	@end
-	
+
 	@implementation NSNull (JSON)
-	
+
 	- (NSUInteger)length { return 0; }
-	
+
 	- (NSInteger)integerValue { return 0; };
-	
+
 	- (float)floatValue { return 0; };
-	
+
 	- (NSString *)description { return @"0(NSNull)"; }
-	
+
 	- (NSArray *)componentsSeparatedByString:(NSString *)separator { return @[]; }
-	
+
 	- (id)objectForKey:(id)key { return nil; }
-	
+
 	- (BOOL)boolValue { return NO; }
-	
+
 	@end
-	
+
 通过NSNull+JSON.m完美解决，只需要在用的时候import次Category即可。
 
 引用：
 
 [http://stackoverflow.com/questions/5908936/difference-between-nil-nil-and-null-in-objective-c](http://stackoverflow.com/questions/5908936/difference-between-nil-nil-and-null-in-objective-c)
 [http://stackoverflow.com/questions/16607960/nsnull-length-unrecognized-selector-sent-to-json-objects](http://stackoverflow.com/questions/16607960/nsnull-length-unrecognized-selector-sent-to-json-objects)
-
